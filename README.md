@@ -11,7 +11,7 @@
 **Фронтенд:**
 - HTML5 + CSS3 (чистый, без фреймворков)
 - JavaScript (Vanilla)
-- Responsive design
+- bootstrapcss
 
 **Бэкенд:**
 - Python 3.11
