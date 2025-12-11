@@ -1,0 +1,11 @@
+Flask==2.3.3
+Flask-SQLAlchemy==3.0.5
+Flask-Login==0.6.2
+Flask-WTF==1.1.1
+python-dotenv==1.0.0
+email-validator==2.0.0
+stripe==7.0.0
+Pillow==10.0.0
+psycopg2-binary==2.9.9
+# Pin Werkzeug to <3 to remain compatible with Flask-Login 0.6.2
+werkzeug<3.0.0
