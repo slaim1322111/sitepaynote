@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block title %}Кабинет — Маркетплейс нот{% endblock %}
+{% block content %}
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <h2 class="m-0">Кабинет — {{ current_user.username }}</h2>
+    <div>
+      {% if current_user.is_admin %}
+        <span class="badge bg-primary me-2">Админ</span>
+      {% endif %}
+      <span class="badge bg-success">Баланс: ₽{{ '%.2f'|format(current_user.balance) }}</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Купленные ноты</h4>
+      {% if purchases %}
+        <div class="list-group">
+          {% for p, listing in purchases %}
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+              <div>
+                <strong>{{ listing.title }}</strong>
+                <div class="text-muted small">Продавец: {{ listing.seller }}</div>
+              </div>
+              <div class="d-flex align-items-center gap-2">
+                <span class="text-success fw-bold">₽{{ '%.2f'|format(listing.price) }}</span>
+                {% if listing.file_name %}
+                  <a href="{{ url_for('uploaded_file', filename=listing.file_name) }}" class="btn btn-sm btn-outline-primary">Скачать</a>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="text-muted">Пока нет купленных нот.</p>
+      {% endif %}
+    </div>
+    <div class="col-md-6">
+      <h4>Загруженные / мои объявления</h4>
+      {% if current_user.is_admin %}
+        <div class="mb-3">
+          <a href="{{ url_for('admin_users') }}" class="btn btn-sm btn-secondary">Управление пользователями</a>
+        </div>
+        <hr>
+        <h5>Панель модерации</h5>
+        <p class="small text-muted">Неопубликованные объявления. Одобрите или отклоните.</p>
+        {% if pending and pending|length > 0 %}
+          <div class="list-group mb-3">
+            {% for p in pending %}
+              <div class="list-group-item moderation-card">
+                <div class="d-flex justify-content-between align-items-start">
+                  <div>
+                    <strong>{{ p.title }}</strong>
+                    <div class="small text-muted">{{ p.seller }} • {{ p.created_at.strftime('%Y-%m-%d') }}</div>
+                    <div class="small">₽{{ '%.2f'|format(p.price) }}</div>
+                  </div>
+                  <div class="d-flex gap-2">
+                    <a href="{{ url_for('listing_detail', listing_id=p.id) }}" class="btn btn-sm btn-outline-secondary" target="_blank">Посмотреть</a>
+                    {% if p.file_name %}
+                      <a href="{{ url_for('uploaded_file', filename=p.file_name) }}" class="btn btn-sm btn-outline-info">Файл</a>
+                    {% endif %}
+                    <a href="{{ url_for('approve_listing', listing_id=p.id) }}" class="btn btn-sm btn-success">Одобрить</a>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <p class="text-muted small">Нет заявок на проверку.</p>
+        {% endif %}
+      {% endif %}
+      {% if uploads %}
+        <div class="row">
+          {% for item in uploads %}
+            <div class="col-12 mb-2">
+              <div class="card p-2">
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <strong>{{ item.title }}</strong>
+                    <div class="small text-muted">{{ item.created_at.strftime('%Y-%m-%d') }}</div>
+                  </div>
+                  <div>₽{{ '%.2f'|format(item.price) }}</div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="text-muted">Пока нет созданных объявлений.</p>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

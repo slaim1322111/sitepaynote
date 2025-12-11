@@ -1,0 +1,83 @@
+/* Современные стильные стили для Маркетплейса нот */
+:root{
+  --accent:#6f42c1; /* purple */
+  --accent-2:#3b82f6; /* blue */
+  --muted:#6c757d;
+  --card-bg: #ffffff;
+  --bg: #f6f7fb;
+}
+
+body.site-body{
+  background: linear-gradient(180deg, rgba(111,66,193,0.06), rgba(59,130,246,0.03)), var(--bg);
+  color: #222;
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+.bg-gradient{
+  background: linear-gradient(90deg, rgba(111,66,193,0.95), rgba(59,130,246,0.95));
+}
+
+.navbar .navbar-brand{
+  font-weight:700;
+  letter-spacing:0.4px;
+  background: linear-gradient(90deg, #6f42c1, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: brightness(1.3);
+}
+
+/* navbar links style with gradient */
+.navbar .nav-link{
+  background: linear-gradient(90deg, #6f42c1, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  filter: brightness(1.2);
+}
+
+.navbar .nav-link:hover{
+  filter: brightness(1.4);
+  transform: translateY(-1px);
+}
+
+/* active nav link style */
+.nav-link.active{
+  filter: brightness(1.5);
+  font-weight: 700;
+}
+
+.hero{
+  background: linear-gradient(90deg, rgba(111,66,193,0.9), rgba(59,130,246,0.9));
+  border-radius: 10px;
+}
+.hero-title{font-size:2.2rem; font-weight:700; margin:0}
+.hero-sub{opacity:0.95}
+
+.card{border:0; border-radius:12px; box-shadow:0 6px 18px rgba(13,38,59,0.08)}
+.card .card-body{padding:1.4rem}
+
+.text-success{color:var(--accent-2) !important}
+
+.btn-primary{background: linear-gradient(90deg,var(--accent),var(--accent-2)); border:0}
+.btn-outline-primary{border-color: rgba(59,130,246,0.25); color:rgba(59,130,246,0.95)}
+
+.site-footer{border-top:1px solid rgba(0,0,0,0.05)}
+
+@media (max-width:767px){
+  .hero-title{font-size:1.6rem}
+}
+
+.card .card-text{color:var(--muted)}
+
+.form-control{border-radius:8px}
+
+.alert{border-radius:8px}
+
+/* Admin / moderation styles */
+.badge.bg-primary{background: linear-gradient(90deg,var(--accent),var(--accent-2)); color:#fff}
+.moderation-card{background: linear-gradient(180deg, rgba(111,66,193,0.03), rgba(59,130,246,0.02)); border-radius:8px; margin-bottom:6px}
+.moderation-card strong{color:var(--accent)}
+.list-group-item .btn{min-width:90px}

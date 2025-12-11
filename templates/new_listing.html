@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Создать объявление — Маркетплейс нот{% endblock %}
+{% block content %}
+  <h2>Новое объявление</h2>
+  <form method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label class="form-label">Заголовок</label>
+      <input name="title" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Описание</label>
+      <textarea name="description" class="form-control" rows="6"></textarea>
+    </div>
+    <div class="row">
+      <div class="col-md-6 mb-3">
+  <label class="form-label">Цена (RUB)</label>
+        <input name="price" class="form-control" required>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Продавец</label>
+        <input name="seller" class="form-control" disabled value="{{ current_user.username if current_user.is_authenticated else '' }}">
+      </div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Файл (ноты, изображение, архив)</label>
+      <input name="file" type="file" class="form-control">
+      <div class="form-text">Разрешённые форматы: pdf, png, jpg, jpeg, zip, tif</div>
+    </div>
+    <button class="btn btn-success">Опубликовать</button>
+  </form>
+{% endblock %}
+ 

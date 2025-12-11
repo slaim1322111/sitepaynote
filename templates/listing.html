@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}{{ listing.title }} — Маркетплейс нот{% endblock %}
+{% block content %}
+  <div class="row">
+    <div class="col-md-8">
+      <h2>{{ listing.title }}</h2>
+      <p class="text-muted">Продавец: {{ listing.seller }} • {{ listing.created_at.strftime('%Y-%m-%d') }}</p>
+      <p>{{ listing.description }}</p>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title text-success">₽{{ '%.2f'|format(listing.price) }}</h4>
+          <form method="post">
+            <div class="mb-3">
+              <label class="form-label">Ваше имя</label>
+              <input name="buyer" class="form-control" placeholder="Имя покупателя">
+            </div>
+            <button class="btn btn-primary w-100" type="submit">Купить</button>
+          </form>
+        </div>
+      </div>
+      
+      {% if user_can_access_file and listing.file_name %}
+        <div class="card mt-3">
+          <div class="card-body">
+            <h5 class="card-title">📎 Файл</h5>
+            <p class="card-text">Вы можете скачать файл, так как:</p>
+            <ul class="small">
+              {% if listing.seller == current_user.username %}
+                <li>Вы продавец этого объявления</li>
+              {% elif current_user.is_admin %}
+                <li>Вы администратор</li>
+              {% else %}
+                <li>Вы купили этот товар</li>
+              {% endif %}
+            </ul>
+            <a href="{{ url_for('uploaded_file', filename=listing.file_name) }}" class="btn btn-outline-primary w-100">Скачать файл</a>
+          </div>
+        </div>
+      {% elif listing.file_name %}
+        <div class="alert alert-info mt-3" role="alert">
+          <strong>💡 К этому товару прилагается файл.</strong><br>
+          Чтобы получить доступ, вам нужно купить товар.
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

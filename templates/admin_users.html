@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}Управление пользователями — Администратор{% endblock %}
+{% block content %}
+  <h2>Управление пользователями</h2>
+  <p class="text-muted">Здесь вы можете пополнить или изменить баланс пользователей.</p>
+  
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Имя пользователя</th>
+          <th>Баланс</th>
+          <th>Действия</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+          <tr>
+            <td>
+              <strong>{{ user.username }}</strong>
+              {% if user.is_admin %}
+                <span class="badge bg-primary">Админ</span>
+              {% endif %}
+            </td>
+            <td>
+              <span class="badge bg-success">₽{{ '%.2f'|format(user.balance) }}</span>
+            </td>
+            <td>
+              <button class="btn btn-sm btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#user-{{ user.id }}-forms" aria-expanded="false">
+                Изменить баланс
+              </button>
+            </td>
+          </tr>
+          <tr class="collapse" id="user-{{ user.id }}-forms">
+            <td colspan="3">
+              <div class="p-3 bg-light rounded">
+                <div class="row">
+                  <div class="col-md-6">
+                    <h6>Пополнить баланс</h6>
+                    <form method="post" action="{{ url_for('add_user_balance', user_id=user.id) }}" class="d-flex gap-2">
+                      <input type="number" name="amount" class="form-control" placeholder="Сумма (₽)" step="0.01" min="0.01" required>
+                      <button class="btn btn-success btn-sm" type="submit">Добавить</button>
+                    </form>
+                  </div>
+                  <div class="col-md-6">
+                    <h6>Установить баланс</h6>
+                    <form method="post" action="{{ url_for('set_user_balance', user_id=user.id) }}" class="d-flex gap-2">
+                      <input type="number" name="balance" class="form-control" placeholder="Новый баланс (₽)" step="0.01" min="0" required>
+                      <button class="btn btn-warning btn-sm" type="submit">Установить</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  
+  <hr>
+  <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Назад в кабинет</a>
+{% endblock %}
