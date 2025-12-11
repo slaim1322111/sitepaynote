@@ -10,7 +10,7 @@
 ## Стек технологий
 **Фронтенд:**
 - HTML5 + CSS3 (Взял его потому что работал уже с ним. В целом со всем остальным такая же ситуация)
-- JavaScript (Vanilla)
+- JavaScript 
 - bootstrapcss
 
 **Бэкенд:**
@@ -21,8 +21,7 @@
 - Flask-WTF (формы)
 
 **База данных:**
-- PostgreSQL (продакшен)
-- SQLite (разработка)
+- PostgreSQL
 
 **Инфраструктура:**
 - Docker + Docker Compose
