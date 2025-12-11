@@ -249,3 +249,6 @@ div class="mt-auto d-flex justify-content-between align-items-center"
 mt-auto → добавляет автоматический верхний отступ, чтобы кнопки «прижимались» к низу карточки.
 
 d-flex justify-content-between align-items-center → горизонтальное распределение и вертикальное центрирование элементов внутри карточки.
+  div class="block" style="width: 200px; height: 100px; background: lightblue;">Блок 1
+  div class="block" style="width: 200px; height: 100px; background: lightgreen;">Блок 2
+  div class="block" style="width: 200px; height: 100px; background: lightcoral;">Блок 3
